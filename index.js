@@ -36,7 +36,6 @@ async function run() {
         // Get single api
         app.get('/foods/:id', async(req, res) => {
             const id = req.params.id;
-            console.log('getting specific food', id)
             const query = {_id: ObjectId(id)};
             const food = await foodsCollection.findOne(query);
             res.json(food)
