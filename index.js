@@ -42,13 +42,22 @@ async function run() {
             res.json(food)
         });
 
+        // post api
+        app.get('foods', async (req, res) => {
+            const newFood = req.body;
+            console.log('new food', newFood)
+            const result = await foodsCollection.insertOne(newFood);
+            console.log(result)
+            res.json(result)
+        })
+
 
         // Get api
         app.get('/restaurants', async(req, res) => {
             const cursor = restaurantsCollection.find({});
             const restaurants = await cursor.toArray();
             res.send(restaurants);
-        })
+        });
 
 
     } finally {
