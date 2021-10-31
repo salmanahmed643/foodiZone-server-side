@@ -24,6 +24,7 @@ async function run() {
 
         const database = client.db('all_foods');
         const foodsCollection = database.collection('foods');
+        const restaurantsCollection = database.collection('restaurants')
 
 
         // Get api
@@ -31,7 +32,7 @@ async function run() {
             const cursor = foodsCollection.find({});
             const foods = await cursor.toArray();
             res.send(foods);
-        })
+        });
 
         // Get single api
         app.get('/foods/:id', async(req, res) => {
@@ -39,6 +40,14 @@ async function run() {
             const query = {_id: ObjectId(id)};
             const food = await foodsCollection.findOne(query);
             res.json(food)
+        });
+
+
+        // Get api
+        app.get('/restaurants', async(req, res) => {
+            const cursor = restaurantsCollection.find({});
+            const restaurants = await cursor.toArray();
+            res.send(restaurants);
         })
 
 
